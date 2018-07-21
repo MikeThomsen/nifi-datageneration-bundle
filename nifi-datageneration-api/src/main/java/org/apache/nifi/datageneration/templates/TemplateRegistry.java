@@ -1,6 +1,8 @@
 package org.apache.nifi.datageneration.templates;
 
-public interface TemplateRegistry {
+import org.apache.nifi.controller.ControllerService;
+
+public interface TemplateRegistry extends ControllerService {
     /**
      * Add a template to the registry.
      * @param name The name of the template to use in lookups.

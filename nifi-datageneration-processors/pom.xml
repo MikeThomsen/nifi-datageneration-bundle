@@ -101,5 +101,11 @@
             <version>${nifi.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-datageneration-api</artifactId>
+            <version>1.7.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
