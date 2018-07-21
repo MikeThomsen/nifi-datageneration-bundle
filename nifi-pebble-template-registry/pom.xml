@@ -16,7 +16,7 @@
         <artifactId>nifi-datageneration-bundle</artifactId>
         <version>1.7.1</version>
     </parent>
-    <artifactId>nifi-datageneration-services</artifactId>
+    <artifactId>nifi-pebble-template-registry</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -78,6 +78,12 @@
             <artifactId>nifi-schema-registry-service-api</artifactId>
             <scope>compile</scope>
             <version>1.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.pebbletemplates</groupId>
+            <artifactId>pebble</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 </project>

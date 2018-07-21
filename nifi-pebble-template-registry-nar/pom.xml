@@ -22,6 +22,9 @@
     </parent>
     <artifactId>nifi-datageneration-services-nar</artifactId>
     <packaging>nar</packaging>
+    <properties>
+        <nifi.version>1.7.1</nifi.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.nifi</groupId>
@@ -31,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.nifi</groupId>
-            <artifactId>nifi-datageneration-services</artifactId>
+            <artifactId>nifi-pebble-template-registry</artifactId>
             <version>${nifi.version}</version>
         </dependency>
     </dependencies>
