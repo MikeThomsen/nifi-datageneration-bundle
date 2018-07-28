@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>nifi-pebble-test-extension</module>
         <module>nifi-datageneration-api</module>
         <module>nifi-datageneration-api-nar</module>
         <module>nifi-datageneration-nar</module>

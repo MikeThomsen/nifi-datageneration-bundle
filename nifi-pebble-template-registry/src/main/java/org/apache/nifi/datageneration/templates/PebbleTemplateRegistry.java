@@ -2,16 +2,19 @@ package org.apache.nifi.datageneration.templates;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.loader.StringLoader;
+import com.mitchellbosecke.pebble.extension.Extension;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
+import org.apache.nifi.components.Validator;
 import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.controller.ConfigurationContext;
 import org.apache.nifi.processor.util.StandardValidators;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +22,19 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
     private Map<String, PebbleTemplate> cache = new ConcurrentHashMap<>();
     private Map<String, String> rawCache = new ConcurrentHashMap<>();
     private volatile PebbleEngine engine;
+
+    static final PropertyDescriptor EXTENSION = new PropertyDescriptor.Builder()
+        .name("extension")
+        .displayName("Extension")
+        .dynamicallyModifiesClasspath(true)
+        .addValidator(Validator.VALID)
+        .required(false)
+        .build();
+
+    @Override
+    public List<PropertyDescriptor> getSupportedPropertyDescriptors() {
+        return Arrays.asList(EXTENSION);
+    }
 
     public void addTemplate(String name, String text) {
         PebbleTemplate template = engine.getTemplate(text);
@@ -83,8 +99,23 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
 
     @OnEnabled
     public void onEnabled(ConfigurationContext context) {
-        engine = new PebbleEngine.Builder()
-            .loader(new StringMapLoader(rawCache))
-            .build();
+//        engine = new PebbleEngine.Builder()
+//            .loader(new StringMapLoader(rawCache))
+//            .build();
+        PebbleEngine.Builder builder = new PebbleEngine.Builder()
+                .loader(new StringMapLoader(rawCache));
+
+        String path = context.getProperty(EXTENSION).getValue();
+        if (!path.isEmpty()) {
+            try {
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                Class clz = Class.forName("org.apache.nifi.datageneration.templates.TestExtension", true, loader);
+                builder.extension((Extension) clz.newInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        engine = builder.build();
     }
 }

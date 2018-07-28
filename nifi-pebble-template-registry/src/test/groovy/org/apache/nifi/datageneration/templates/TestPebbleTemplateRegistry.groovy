@@ -15,6 +15,7 @@ class TestPebbleTemplateRegistry {
         runner = TestRunners.newTestRunner(PebbleTestProcessor.class)
         registry = new PebbleTemplateRegistry()
         runner.addControllerService("registry", registry)
+        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION, "")
         runner.enableControllerService(registry)
         runner.setProperty(PebbleTestProcessor.REGISTRY, "registry")
     }
@@ -39,4 +40,18 @@ class TestPebbleTemplateRegistry {
             }
         }
     }
+
+//    @Test
+//    void testExtensions() {
+//        runner.disableControllerService(registry)
+//        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION, "/tmp/test-extension.jar")
+//        runner.enableControllerService(registry)
+//        runner.assertValid()
+//
+//        registry.addTemplate("extension.test", "{{current_time()}}")
+//
+//        def data = registry.generateByName("{}".bytes, "extension.test")
+//        Assert.assertTrue(data?.trim().length() > 0)
+//        Assert.assertTrue(new Long(data) > 0)
+//    }
 }
