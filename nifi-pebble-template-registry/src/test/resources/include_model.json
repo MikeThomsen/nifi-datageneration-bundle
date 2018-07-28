@@ -1,0 +1,12 @@
+{
+  "address": {
+    "street": "123 Main Street",
+    "city": "Big City",
+    "state": "VA",
+    "country": "USA"
+  },
+  "name": {
+    "first": "John",
+    "last": "Smith"
+  }
+}

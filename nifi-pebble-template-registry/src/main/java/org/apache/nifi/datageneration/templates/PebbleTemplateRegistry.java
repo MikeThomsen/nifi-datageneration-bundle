@@ -17,11 +17,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PebbleTemplateRegistry extends AbstractControllerService implements TemplateRegistry {
     private Map<String, PebbleTemplate> cache = new ConcurrentHashMap<>();
+    private Map<String, String> rawCache = new ConcurrentHashMap<>();
     private volatile PebbleEngine engine;
 
     public void addTemplate(String name, String text) {
         PebbleTemplate template = engine.getTemplate(text);
         cache.put(name, template);
+        rawCache.put(name, text);
     }
 
     public String generateByName(byte[] model, String name) {
@@ -60,6 +62,7 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
 
     public void removeTemplate(String name) {
         cache.remove(name);
+        rawCache.remove(name);
     }
 
     protected PropertyDescriptor getSupportedDynamicPropertyDescriptor(String propertyDescriptorName) {
@@ -71,6 +74,7 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
             .build();
     }
 
+    @Override
     public void onPropertyModified(PropertyDescriptor descriptor, String oldValue, String newValue) {
         if (descriptor.isDynamic()) {
 
@@ -80,7 +84,7 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
     @OnEnabled
     public void onEnabled(ConfigurationContext context) {
         engine = new PebbleEngine.Builder()
-            .loader(new StringLoader())
+            .loader(new StringMapLoader(rawCache))
             .build();
     }
 }
