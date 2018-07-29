@@ -7,12 +7,14 @@ import org.apache.nifi.annotation.documentation.CapabilityDescription;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
+import org.apache.nifi.expression.ExpressionLanguageScope;
 import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.processor.AbstractProcessor;
 import org.apache.nifi.processor.ProcessContext;
 import org.apache.nifi.processor.ProcessSession;
 import org.apache.nifi.processor.Relationship;
 import org.apache.nifi.processor.exception.ProcessException;
+import org.apache.nifi.processor.util.StandardValidators;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,8 +31,7 @@ import java.util.Set;
 @InputRequirement(InputRequirement.Requirement.INPUT_REQUIRED)
 @ReadsAttributes({
     @ReadsAttribute(attribute = TemplateProcessor.TEMPLATE_TEXT, description = "The raw text of the template."),
-    @ReadsAttribute(attribute = TemplateProcessor.TEMPLATE_NAME, description = "The name of a template that has been registered as a dynamic property."),
-    @ReadsAttribute(attribute = TemplateProcessor.OUTPUT_MIME_TYPE, description = "The mime type to assign to the output. Default is text/text.")
+    @ReadsAttribute(attribute = TemplateProcessor.TEMPLATE_NAME, description = "The name of a template that has been registered as a dynamic property.")
 })
 public class TemplateProcessor extends AbstractProcessor {
     static final String TEMPLATE_NAME = "template.name";
@@ -45,6 +46,16 @@ public class TemplateProcessor extends AbstractProcessor {
         .description("The template registry to use with this processor to generate data.")
         .identifiesControllerService(TemplateRegistry.class)
         .required(true)
+        .build();
+
+    static final PropertyDescriptor MIME_TYPE = new PropertyDescriptor.Builder()
+        .name("mime-type")
+        .displayName("MIME Type")
+        .description(String.format("The MIME Type to set on the output files. Default is %s", DEFAULT_OUTPUT_MIME_TYPE))
+        .required(true)
+        .defaultValue(DEFAULT_OUTPUT_MIME_TYPE)
+        .addValidator(StandardValidators.NON_EMPTY_VALIDATOR)
+        .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
         .build();
 
     static final Relationship REL_FAILURE = new Relationship.Builder()
@@ -66,6 +77,7 @@ public class TemplateProcessor extends AbstractProcessor {
     static {
         List<PropertyDescriptor> _temp = new ArrayList<>();
         _temp.add(REGISTRY);
+        _temp.add(MIME_TYPE);
         PROPERTIES = Collections.unmodifiableList(_temp);
 
         Set<Relationship> _rels = new HashSet<>();
@@ -100,7 +112,7 @@ public class TemplateProcessor extends AbstractProcessor {
 
         final String text = input.getAttribute(TEMPLATE_TEXT);
         final String name = input.getAttribute(TEMPLATE_NAME);
-        final String outMime = input.getAttribute(OUTPUT_MIME_TYPE) != null ? input.getAttribute(OUTPUT_MIME_TYPE) : DEFAULT_OUTPUT_MIME_TYPE;
+        final String outMime = context.getProperty(MIME_TYPE).evaluateAttributeExpressions(input).getValue();
         FlowFile outFF = null;
         try {
             byte[] model = getModel(input, session);

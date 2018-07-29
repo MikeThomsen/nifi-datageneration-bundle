@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.extension.Extension;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import org.apache.nifi.annotation.documentation.CapabilityDescription;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@CapabilityDescription("A Template Registry implementation that provides support for the Pebble template library. Extensions to " +
+        "Pebble can be added using the provided configuration properties for defining JAR locations and classes to load. ")
 @Tags({"pebble", "template", "data", "generation"})
 public class PebbleTemplateRegistry extends AbstractControllerService implements TemplateRegistry {
     private Map<String, PebbleTemplate> cache = new ConcurrentHashMap<>();
