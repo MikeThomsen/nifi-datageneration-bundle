@@ -32,6 +32,8 @@
         <module>nifi-datageneration-api-nar</module>
         <module>nifi-datageneration-nar</module>
         <module>nifi-datageneration-processors</module>
+        <module>nifi-pdf-transformer</module>
+        <module>nifi-pdf-transformer-nar</module>
         <module>nifi-pebble-template-registry</module>
         <module>nifi-pebble-template-registry-nar</module>
     </modules>
