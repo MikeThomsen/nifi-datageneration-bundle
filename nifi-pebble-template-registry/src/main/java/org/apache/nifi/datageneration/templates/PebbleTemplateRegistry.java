@@ -145,7 +145,8 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
                 .loader(new StringMapLoader(rawCache));
 
         String path = context.getProperty(EXTENSION_JARS).getValue();
-        if (!path.isEmpty()) {
+        String classList = context.getProperty(EXTENSION_CLASSES).getValue();
+        if (!path.isEmpty() && !classList.isEmpty()) {
             try {
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                 String[] classes = context.getProperty(EXTENSION_CLASSES).getValue().split(",[\\s]*");
