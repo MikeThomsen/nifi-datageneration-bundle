@@ -37,6 +37,7 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
                 "with the Extension Classes property which provides a list of particular classes to use as extensions for the " +
                 "parsing engine.")
         .dynamicallyModifiesClasspath(true)
+        .defaultValue("")
         .addValidator(Validator.VALID)
         .required(false)
         .build();
@@ -45,6 +46,7 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
         .name("extension-classes")
         .displayName("Extension Classes")
         .addValidator(Validator.VALID)
+        .defaultValue("")
         .description("A comma-separated list of fully qualified Java class names that correspond to classes that implement " +
                 "Pebble's Extension interface. This configuration property has no effect unless a value for the Extension JAR field is " +
                 "also provided.")
