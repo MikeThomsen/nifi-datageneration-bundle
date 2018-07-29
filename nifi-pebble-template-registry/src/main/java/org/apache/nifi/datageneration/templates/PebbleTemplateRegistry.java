@@ -4,36 +4,56 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.extension.Extension;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
+import org.apache.nifi.components.ValidationContext;
+import org.apache.nifi.components.ValidationResult;
 import org.apache.nifi.components.Validator;
 import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.controller.ConfigurationContext;
+import org.apache.nifi.processor.exception.ProcessException;
 import org.apache.nifi.processor.util.StandardValidators;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Tags({"pebble", "template", "data", "generation"})
 public class PebbleTemplateRegistry extends AbstractControllerService implements TemplateRegistry {
     private Map<String, PebbleTemplate> cache = new ConcurrentHashMap<>();
     private Map<String, String> rawCache = new ConcurrentHashMap<>();
     private volatile PebbleEngine engine;
 
-    static final PropertyDescriptor EXTENSION = new PropertyDescriptor.Builder()
+    static final PropertyDescriptor EXTENSION_JARS = new PropertyDescriptor.Builder()
         .name("extension")
-        .displayName("Extension")
+        .displayName("Extension JARs")
+        .description("A comma-separated list of Java JAR files to be loaded. This has no practical effect unless combined " +
+                "with the Extension Classes property which provides a list of particular classes to use as extensions for the " +
+                "parsing engine.")
         .dynamicallyModifiesClasspath(true)
         .addValidator(Validator.VALID)
         .required(false)
         .build();
 
+    static final PropertyDescriptor EXTENSION_CLASSES = new PropertyDescriptor.Builder()
+        .name("extension-classes")
+        .displayName("Extension Classes")
+        .addValidator(Validator.VALID)
+        .description("A comma-separated list of fully qualified Java class names that correspond to classes that implement " +
+                "Pebble's Extension interface. This configuration property has no effect unless a value for the Extension JAR field is " +
+                "also provided.")
+        .required(false)
+        .build();
+
     @Override
     public List<PropertyDescriptor> getSupportedPropertyDescriptors() {
-        return Arrays.asList(EXTENSION);
+        return Arrays.asList(EXTENSION_JARS, EXTENSION_CLASSES);
     }
 
     public void addTemplate(String name, String text) {
@@ -92,27 +112,49 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
 
     @Override
     public void onPropertyModified(PropertyDescriptor descriptor, String oldValue, String newValue) {
-        if (descriptor.isDynamic()) {
-
+        if (descriptor.isDynamic() && newValue != null && !newValue.isEmpty()) {
+            addTemplate(descriptor.getName(), newValue);
         }
+    }
+
+    @Override
+    protected Collection<ValidationResult> customValidate(ValidationContext validationContext) {
+        List<ValidationResult> retVal = new ArrayList<>();
+
+        boolean jarsIsSet = validationContext.getProperty(EXTENSION_JARS).isSet();
+        boolean clzIsSet  = validationContext.getProperty(EXTENSION_CLASSES).isSet();
+
+        if (jarsIsSet && clzIsSet) {
+            try {
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                String[] classes = validationContext.getProperty(EXTENSION_CLASSES).getValue().split(",[\\s]*");
+                for (String clz : classes) {
+                    Class.forName(clz, true, loader);
+                }
+            } catch (Exception ex) {
+                throw new ProcessException("Failed initialization due to bad extension configuration.", ex);
+            }
+        }
+
+        return retVal;
     }
 
     @OnEnabled
     public void onEnabled(ConfigurationContext context) {
-//        engine = new PebbleEngine.Builder()
-//            .loader(new StringMapLoader(rawCache))
-//            .build();
         PebbleEngine.Builder builder = new PebbleEngine.Builder()
                 .loader(new StringMapLoader(rawCache));
 
-        String path = context.getProperty(EXTENSION).getValue();
+        String path = context.getProperty(EXTENSION_JARS).getValue();
         if (!path.isEmpty()) {
             try {
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                Class clz = Class.forName("org.apache.nifi.datageneration.templates.TestExtension", true, loader);
-                builder.extension((Extension) clz.newInstance());
+                String[] classes = context.getProperty(EXTENSION_CLASSES).getValue().split(",[\\s]*");
+                for (String cls : classes) {
+                    Class clz = Class.forName(cls, true, loader);
+                    builder = builder.extension((Extension) clz.newInstance());
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ProcessException(e);
             }
         }
 

@@ -15,7 +15,7 @@ class TestPebbleTemplateRegistry {
         runner = TestRunners.newTestRunner(PebbleTestProcessor.class)
         registry = new PebbleTemplateRegistry()
         runner.addControllerService("registry", registry)
-        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION, "")
+        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION_JARS, "")
         runner.enableControllerService(registry)
         runner.setProperty(PebbleTestProcessor.REGISTRY, "registry")
     }
@@ -44,7 +44,7 @@ class TestPebbleTemplateRegistry {
 //    @Test
 //    void testExtensions() {
 //        runner.disableControllerService(registry)
-//        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION, "/tmp/test-extension.jar")
+//        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION_JARS, "/tmp/test-extension.jar")
 //        runner.enableControllerService(registry)
 //        runner.assertValid()
 //
