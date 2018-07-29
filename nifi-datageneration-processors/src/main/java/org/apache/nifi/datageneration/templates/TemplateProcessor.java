@@ -1,6 +1,10 @@
 package org.apache.nifi.datageneration.templates;
 
 import org.apache.nifi.annotation.behavior.InputRequirement;
+import org.apache.nifi.annotation.behavior.ReadsAttribute;
+import org.apache.nifi.annotation.behavior.ReadsAttributes;
+import org.apache.nifi.annotation.documentation.CapabilityDescription;
+import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.flowfile.FlowFile;
@@ -18,10 +22,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Tags({"template", "data", "generation"})
+@CapabilityDescription("A processor for taking templates and building data from them. The processor itself does not implement " +
+        "support for any particular template library or scheme, but instead requires a compatible controller service called a " +
+        "TemplateRegistry.")
 @InputRequirement(InputRequirement.Requirement.INPUT_REQUIRED)
+@ReadsAttributes({
+    @ReadsAttribute(attribute = TemplateProcessor.TEMPLATE_TEXT, description = "The raw text of the template."),
+    @ReadsAttribute(attribute = TemplateProcessor.TEMPLATE_NAME, description = "The name of a template that has been registered as a dynamic property."),
+    @ReadsAttribute(attribute = TemplateProcessor.OUTPUT_MIME_TYPE, description = "The mime type to assign to the output. Default is text/text.")
+})
 public class TemplateProcessor extends AbstractProcessor {
     static final String TEMPLATE_NAME = "template.name";
     static final String TEMPLATE_TEXT = "template.text";
+    static final String OUTPUT_MIME_TYPE = "out.mime.type";
+
+    static final String DEFAULT_OUTPUT_MIME_TYPE = "text/text";
 
     static final PropertyDescriptor REGISTRY = new PropertyDescriptor.Builder()
         .name("template-registry")
@@ -84,6 +100,7 @@ public class TemplateProcessor extends AbstractProcessor {
 
         final String text = input.getAttribute(TEMPLATE_TEXT);
         final String name = input.getAttribute(TEMPLATE_NAME);
+        final String outMime = input.getAttribute(OUTPUT_MIME_TYPE) != null ? input.getAttribute(OUTPUT_MIME_TYPE) : DEFAULT_OUTPUT_MIME_TYPE;
         FlowFile outFF = null;
         try {
             byte[] model = getModel(input, session);
@@ -97,6 +114,7 @@ public class TemplateProcessor extends AbstractProcessor {
             }
 
             outFF = session.write(session.create(input), out -> out.write(output.getBytes()));
+            outFF = session.putAttribute(outFF, OUTPUT_MIME_TYPE, outMime);
             session.transfer(outFF, REL_SUCCESS);
             session.transfer(input, REL_ORIGINAL);
         } catch (Exception ex) {

@@ -108,7 +108,7 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>test-compile</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>

@@ -14,6 +14,7 @@ import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.controller.ConfigurationContext;
 import org.apache.nifi.processor.exception.ProcessException;
 import org.apache.nifi.processor.util.StandardValidators;
+import org.apache.nifi.util.StringUtils;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -123,8 +124,8 @@ public class PebbleTemplateRegistry extends AbstractControllerService implements
     protected Collection<ValidationResult> customValidate(ValidationContext validationContext) {
         List<ValidationResult> retVal = new ArrayList<>();
 
-        boolean jarsIsSet = validationContext.getProperty(EXTENSION_JARS).isSet();
-        boolean clzIsSet  = validationContext.getProperty(EXTENSION_CLASSES).isSet();
+        boolean jarsIsSet = !StringUtils.isEmpty(validationContext.getProperty(EXTENSION_JARS).getValue());
+        boolean clzIsSet  = !StringUtils.isEmpty(validationContext.getProperty(EXTENSION_CLASSES).getValue());
 
         if (jarsIsSet && clzIsSet) {
             try {
