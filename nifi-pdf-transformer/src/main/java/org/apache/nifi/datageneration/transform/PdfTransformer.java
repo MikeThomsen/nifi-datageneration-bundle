@@ -1,7 +1,6 @@
 package org.apache.nifi.datageneration.transform;
 
 import org.apache.nifi.controller.AbstractControllerService;
-import org.apache.nifi.datageneration.transform.TransformationService;
 
 import java.util.Map;
 
