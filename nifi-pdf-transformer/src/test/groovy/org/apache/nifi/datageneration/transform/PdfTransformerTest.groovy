@@ -20,6 +20,6 @@ class PdfTransformerTest {
 
     @Before
     void testTransformRawText() {
-        
+
     }
 }
