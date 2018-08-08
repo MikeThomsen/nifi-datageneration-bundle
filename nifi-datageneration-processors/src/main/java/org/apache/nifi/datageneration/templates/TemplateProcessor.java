@@ -141,9 +141,12 @@ public class TemplateProcessor extends AbstractProcessor {
             }
 
             byte[] content = getOutputFlowFileContent(output, input.getAttributes());
+            String mime    = transformationService != null
+                ? transformationService.getMimeType()
+                : outMime;
 
             outFF = session.write(session.create(input), out -> out.write(content));
-            outFF = session.putAttribute(outFF, OUTPUT_MIME_TYPE, outMime);
+            outFF = session.putAttribute(outFF, OUTPUT_MIME_TYPE, mime);
             session.transfer(outFF, REL_SUCCESS);
             session.transfer(input, REL_ORIGINAL);
         } catch (Exception ex) {
