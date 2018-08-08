@@ -7,6 +7,7 @@ import org.apache.nifi.annotation.documentation.CapabilityDescription;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
+import org.apache.nifi.datageneration.transform.TransformationService;
 import org.apache.nifi.expression.ExpressionLanguageScope;
 import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.processor.AbstractProcessor;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Tags({"template", "data", "generation"})
@@ -46,6 +48,14 @@ public class TemplateProcessor extends AbstractProcessor {
         .description("The template registry to use with this processor to generate data.")
         .identifiesControllerService(TemplateRegistry.class)
         .required(true)
+        .build();
+
+    static final PropertyDescriptor TRANSFORMER = new PropertyDescriptor.Builder()
+        .name("transformer-service")
+        .displayName("Output Transformer")
+        .description("A controller service that can transform the output of the template processing.")
+        .identifiesControllerService(TransformationService.class)
+        .required(false)
         .build();
 
     static final PropertyDescriptor MIME_TYPE = new PropertyDescriptor.Builder()
@@ -77,6 +87,7 @@ public class TemplateProcessor extends AbstractProcessor {
     static {
         List<PropertyDescriptor> _temp = new ArrayList<>();
         _temp.add(REGISTRY);
+        _temp.add(TRANSFORMER);
         _temp.add(MIME_TYPE);
         PROPERTIES = Collections.unmodifiableList(_temp);
 
@@ -88,6 +99,7 @@ public class TemplateProcessor extends AbstractProcessor {
     }
 
     private volatile TemplateRegistry registry;
+    private volatile TransformationService transformationService;
 
     @Override
     public Set<Relationship> getRelationships() {
@@ -102,6 +114,9 @@ public class TemplateProcessor extends AbstractProcessor {
     @OnScheduled
     public void onScheduled(ProcessContext context) {
         registry = context.getProperty(REGISTRY).asControllerService(TemplateRegistry.class);
+        transformationService = context.getProperty(TRANSFORMER).isSet()
+            ? context.getProperty(TRANSFORMER).asControllerService(TransformationService.class)
+            : null;
     }
 
     public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException {
@@ -125,7 +140,9 @@ public class TemplateProcessor extends AbstractProcessor {
                 throw new ProcessException(String.format("Input flowfile did not have either %s or %s defined as attributes.", TEMPLATE_NAME, TEMPLATE_TEXT));
             }
 
-            outFF = session.write(session.create(input), out -> out.write(output.getBytes()));
+            byte[] content = getOutputFlowFileContent(output, input.getAttributes());
+
+            outFF = session.write(session.create(input), out -> out.write(content));
             outFF = session.putAttribute(outFF, OUTPUT_MIME_TYPE, outMime);
             session.transfer(outFF, REL_SUCCESS);
             session.transfer(input, REL_ORIGINAL);
@@ -136,6 +153,15 @@ public class TemplateProcessor extends AbstractProcessor {
                 session.remove(outFF);
             }
         }
+    }
+
+    private byte[] getOutputFlowFileContent(String output, Map<String, String> attributes) {
+        byte[] retVal = output.getBytes();
+        if (transformationService != null) {
+            retVal = transformationService.transform(retVal, attributes);
+        }
+
+        return retVal;
     }
 
     private byte[] getModel(FlowFile input, ProcessSession session) throws IOException {

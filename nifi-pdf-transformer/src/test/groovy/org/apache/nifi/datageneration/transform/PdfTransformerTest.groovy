@@ -3,6 +3,7 @@ package org.apache.nifi.datageneration.transform
 import org.apache.nifi.util.TestRunner
 import org.apache.nifi.util.TestRunners
 import org.junit.Before
+import org.junit.Test
 
 class PdfTransformerTest {
     PdfTransformer transformer
@@ -18,7 +19,7 @@ class PdfTransformerTest {
         runner.assertValid()
     }
 
-    @Before
+    @Test
     void testTransformRawText() {
 
     }
