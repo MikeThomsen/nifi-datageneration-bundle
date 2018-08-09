@@ -92,7 +92,7 @@ class PdfTransformerTest {
     }
 
     @Test
-    void basicTableTest() {
+    void testBasicTable() {
         def html = """
             <table>
                 <thead>
@@ -113,5 +113,107 @@ class PdfTransformerTest {
         """.bytes
 
         cssTest("", "basic-table", html)
+    }
+
+    @Test
+    void testTableWithNoHeaders() {
+        def html = """
+            <table>
+               <tbody>
+                    <tr>
+                        <td>John Smith"</td>
+                        <td>john.smith@test-company.com</td>
+                        <td>Engineering</td>
+                    </tr>
+                </tbody>
+           </table>
+        """.bytes
+
+        cssTest("", "table-no-headers", html)
+    }
+
+    @Test
+    void testTableWithRawRows() {
+        def html = """
+            <table>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                </tr>
+           </table>
+        """.bytes
+
+        cssTest("", "table-raw-rows", html)
+    }
+
+    @Test
+    void testTableWithUnbalancedRows() {
+        def html = """
+            <table>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                </tr>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                    <td>Employee Level 99</td>
+                </tr>
+           </table>
+        """.bytes
+
+        cssTest("", "table-unbalanced-rows", html)
+    }
+
+    @Test
+    void testTableWithUnbalancedRowsAndHeaders() {
+        def html = """
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Employee Level</th>
+                        <th>Manager</th>
+                   </tr>
+               </thead>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                </tr>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                    <td>Level 99</td>
+                </tr>
+                <tr>
+                    <td>John Smith"</td>
+                    <td>john.smith@test-company.com</td>
+                    <td>Engineering</td>
+                    <td></td>
+                    <td>Jane Doe</td>
+                </tr>
+           </table>
+        """.bytes
+
+        cssTest("", "table-unbalanced-rows-and-headers", html)
     }
 }

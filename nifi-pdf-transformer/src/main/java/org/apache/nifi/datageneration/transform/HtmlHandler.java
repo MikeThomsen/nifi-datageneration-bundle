@@ -2,14 +2,13 @@ package org.apache.nifi.datageneration.transform;
 
 import com.lowagie.text.Anchor;
 import com.lowagie.text.BadElementException;
-import com.lowagie.text.Cell;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
-import com.lowagie.text.Table;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import org.apache.nifi.processor.exception.ProcessException;
@@ -116,10 +115,7 @@ public class HtmlHandler implements PdfHandler {
     private void addHeaders(List<String> headers, PdfPTable generated) throws BadElementException {
         if (!headers.isEmpty()) {
             for (int x = 0; x < headers.size(); x++) {
-                PdfPCell cell = new PdfPCell(new Phrase(headers.get(x)));
-                cell.setBorder(3);
-                cell.setColspan(1);
-                generated.addCell(cell);
+                generated.addCell(makeCell(headers.get(x), 1, 1, Rectangle.BOX));
             }
         }
     }
@@ -128,21 +124,24 @@ public class HtmlHandler implements PdfHandler {
         for (int x = 0; x < cells.size(); x++) {
             List<String> row = cells.get(x);
             for (int y = 0; y < row.size(); y++) {
-                PdfPCell cell = new PdfPCell(new Phrase(row.get(y)));
-                cell.setColspan(1);
-                cell.setBorder(3);
-                generated.addCell(cell);
+                generated.addCell(makeCell(row.get(y), 1, 1, Rectangle.BOX));
             }
 
             if (row.size() < columnCount) {
                 int delta = columnCount - row.size();
                 for (int y = 0; y < delta; y++) {
-                    PdfPCell cell = new PdfPCell(new Phrase((String)null));
-                    cell.setColspan(1);
-                    cell.setBorder(3);
-                    generated.addCell(cell);
+                    generated.addCell(makeCell(null, 1, 1, Rectangle.BOX));
                 }
             }
         }
+    }
+
+    private PdfPCell makeCell(String phrase, int colSpan, int rowSpan, int border) {
+        PdfPCell cell = new PdfPCell(new Phrase(phrase));
+        cell.setColspan(colSpan);
+        cell.setRowspan(rowSpan);
+        cell.setBorder(border);
+
+        return cell;
     }
 }
