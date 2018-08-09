@@ -60,14 +60,28 @@ class PdfTransformerTest {
         cssTest("", "css-no-selector")
     }
 
+    @Test
+    void testTransformHtmlWithBasicDOMWalk() {
+        cssTest("", "asterick", """
+            <p>Hello, world</p>
+           Hello, world
+           Buongiorno, mondo!<br/>
+           <p>Ciao</p>
+        """.bytes)
+    }
+
     void cssTest(String selector, String fileName) {
+        cssTest(selector, fileName, BASIC_HTML)
+    }
+
+    void cssTest(String selector, String fileName, byte[] html) {
         runner.disableControllerService(transformer)
         runner.setProperty(transformer, PdfTransformer.HANDLER, PdfTransformer.HTML)
         runner.enableControllerService(transformer)
 
 
 
-        def result = transformer.transform(BASIC_HTML, [(HtmlHandler.CSS_SELECTOR_ATTRIBUTE): selector])
+        def result = transformer.transform(html, [(HtmlHandler.CSS_SELECTOR_ATTRIBUTE): selector])
         def reader = new PdfReader(result)
         Assert.assertTrue(reader.numberOfPages == 1)
 
