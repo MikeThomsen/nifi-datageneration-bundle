@@ -48,6 +48,11 @@ public class PdfTransformer extends AbstractControllerService implements Transfo
 
     private volatile PdfHandler pdfHandler;
 
+    @Override
+    public List<PropertyDescriptor> getSupportedPropertyDescriptors() {
+        return DESCRIPTORS;
+    }
+
     @OnEnabled
     public void onEnabled(ConfigurationContext context) {
         String handler = context.getProperty(HANDLER).getValue();
