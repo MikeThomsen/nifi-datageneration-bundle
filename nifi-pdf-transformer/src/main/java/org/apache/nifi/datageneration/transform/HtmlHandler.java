@@ -28,8 +28,10 @@ public class HtmlHandler implements PdfHandler {
     public void handle(Document document, byte[] input, Map<String, String> attributes) throws Exception {
         String content = new String(input);
         org.jsoup.nodes.Document soupDocument = Jsoup.parse(content);
-        if (attributes.containsKey(CSS_SELECTOR_ATTRIBUTE)) {
+        if (attributes.containsKey(CSS_SELECTOR_ATTRIBUTE) && !attributes.get(CSS_SELECTOR_ATTRIBUTE).isEmpty()) {
             handleCssSelector(document, soupDocument, attributes.get(CSS_SELECTOR_ATTRIBUTE));
+        } else if (soupDocument.select("body").size() > 0) {
+            handleCssSelector(document, soupDocument, "body > *");
         }
     }
 
@@ -43,7 +45,6 @@ public class HtmlHandler implements PdfHandler {
             Element element = selected.get(x);
             Paragraph paragraph = new Paragraph();
             convertElement(element, paragraph);
-            boolean hasChildren = element.children().size() > 0;
             if (!paragraph.isEmpty()) {
                 document.add(paragraph);
             }
