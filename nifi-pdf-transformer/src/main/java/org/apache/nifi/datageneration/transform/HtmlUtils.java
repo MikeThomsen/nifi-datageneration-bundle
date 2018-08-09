@@ -32,4 +32,27 @@ public class HtmlUtils {
 
         return headers;
     }
+
+    public static List<List<String>> getMainCells(Element table) {
+        List<List<String>> cells = new ArrayList<>();
+
+        Elements trs = table.select("tbody > tr");
+        if (trs.isEmpty()) {
+            trs = table.select("> tr");
+        }
+
+        for (int x = 0; x < trs.size(); x++) {
+            Element tr = trs.get(x);
+            Elements tds = tr.select("td");
+            List<String> _temp = new ArrayList<>();
+            if (!tds.isEmpty()) {
+                for (int y = 0; y < tds.size(); y++) {
+                    _temp.add(tds.get(y).text().trim());
+                }
+            }
+            cells.add(_temp);
+        }
+
+        return cells;
+    }
 }

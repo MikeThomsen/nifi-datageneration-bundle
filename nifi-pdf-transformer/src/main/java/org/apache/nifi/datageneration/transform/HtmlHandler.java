@@ -23,6 +23,7 @@ import java.util.Map;
 
 import static org.apache.nifi.datageneration.transform.HtmlUtils.countHeaders;
 import static org.apache.nifi.datageneration.transform.HtmlUtils.getHeaders;
+import static org.apache.nifi.datageneration.transform.HtmlUtils.getMainCells;
 
 public class HtmlHandler implements PdfHandler {
     public static String CSS_SELECTOR_ATTRIBUTE = "css.selector";
@@ -94,17 +95,40 @@ public class HtmlHandler implements PdfHandler {
         try {
             Table generated = new Table(columnCount);
             List<String> headers = getHeaders(table);
-            if (!headers.isEmpty()) {
-                for (int x = 0; x < headers.size(); x++) {
-                    Cell cell = new Cell(new Chunk(headers.get(x)));
-                    cell.setBorder(3);
-                    generated.addCell(cell);
-                }
-            }
-
+            addHeaders(headers, generated);
+            List<List<String>> cells = getMainCells(table);
+            addMainCells(cells, generated, columnCount);
+            
             document.add(generated);
         } catch (DocumentException e) {
             throw new ProcessException(e);
+        }
+    }
+
+    private void addHeaders(List<String> headers, Table generated) throws BadElementException {
+        if (!headers.isEmpty()) {
+            for (int x = 0; x < headers.size(); x++) {
+                Cell cell = new Cell(new Chunk(headers.get(x)));
+                cell.setBorder(3);
+                generated.addCell(cell);
+            }
+        }
+    }
+
+    private void addMainCells(List<List<String>> cells, Table generated, int columnCount) throws BadElementException {
+        for (int x = 0; x < cells.size(); x++) {
+            List<String> row = cells.get(x);
+            for (int y = 0; y < row.size(); y++) {
+                Cell cell = new Cell(new Chunk(row.get(y)));
+                generated.addCell(cell);
+            }
+
+            if (row.size() < columnCount) {
+                int delta = columnCount - row.size();
+                for (int y = 0; y < delta; y++) {
+                    generated.addCell("");
+                }
+            }
         }
     }
 }
