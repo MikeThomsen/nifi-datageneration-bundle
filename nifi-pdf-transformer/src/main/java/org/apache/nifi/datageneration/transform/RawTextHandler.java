@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class RawTextHandler implements PdfHandler {
     @Override
-    public void handle(Document document, byte[] model, Map<String, String> attributes) throws Exception {
-        String content = new String(model);
+    public void handle(Document document, byte[] input, Map<String, String> attributes) throws Exception {
+        String content = new String(input);
         Scanner scanner = new Scanner(content);
 
         while(scanner.hasNextLine()) {

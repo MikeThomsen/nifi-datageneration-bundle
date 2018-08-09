@@ -5,5 +5,5 @@ import com.lowagie.text.Document;
 import java.util.Map;
 
 public interface PdfHandler {
-    void handle(Document document, byte[] model, Map<String, String> attributes) throws Exception;
+    void handle(Document document, byte[] input, Map<String, String> attributes) throws Exception;
 }
