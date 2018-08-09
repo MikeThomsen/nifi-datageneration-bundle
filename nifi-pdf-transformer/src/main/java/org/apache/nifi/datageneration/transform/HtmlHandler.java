@@ -8,7 +8,10 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.Table;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import org.apache.nifi.processor.exception.ProcessException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -53,10 +56,15 @@ public class HtmlHandler implements PdfHandler {
 
         for (int x = 0; x < selected.size(); x++) {
             Element element = selected.get(x);
-            Paragraph paragraph = new Paragraph();
-            convertElement(element, document, paragraph);
-            if (!paragraph.isEmpty()) {
-                document.add(paragraph);
+
+            if (element.tagName().equalsIgnoreCase("table")) {
+                handleTable(document, element);
+            } else {
+                Paragraph paragraph = new Paragraph();
+                convertElement(element, document, paragraph);
+                if (!paragraph.isEmpty()) {
+                    document.add(paragraph);
+                }
             }
         }
     }
@@ -93,40 +101,46 @@ public class HtmlHandler implements PdfHandler {
     private void handleTable(Document document, Element table) {
         int columnCount = countHeaders(table);
         try {
-            Table generated = new Table(columnCount);
+            PdfPTable generated = new PdfPTable(columnCount);
             List<String> headers = getHeaders(table);
             addHeaders(headers, generated);
             List<List<String>> cells = getMainCells(table);
             addMainCells(cells, generated, columnCount);
-            
+
             document.add(generated);
         } catch (DocumentException e) {
             throw new ProcessException(e);
         }
     }
 
-    private void addHeaders(List<String> headers, Table generated) throws BadElementException {
+    private void addHeaders(List<String> headers, PdfPTable generated) throws BadElementException {
         if (!headers.isEmpty()) {
             for (int x = 0; x < headers.size(); x++) {
-                Cell cell = new Cell(new Chunk(headers.get(x)));
+                PdfPCell cell = new PdfPCell(new Phrase(headers.get(x)));
                 cell.setBorder(3);
+                cell.setColspan(1);
                 generated.addCell(cell);
             }
         }
     }
 
-    private void addMainCells(List<List<String>> cells, Table generated, int columnCount) throws BadElementException {
+    private void addMainCells(List<List<String>> cells, PdfPTable generated, int columnCount) throws BadElementException {
         for (int x = 0; x < cells.size(); x++) {
             List<String> row = cells.get(x);
             for (int y = 0; y < row.size(); y++) {
-                Cell cell = new Cell(new Chunk(row.get(y)));
+                PdfPCell cell = new PdfPCell(new Phrase(row.get(y)));
+                cell.setColspan(1);
+                cell.setBorder(3);
                 generated.addCell(cell);
             }
 
             if (row.size() < columnCount) {
                 int delta = columnCount - row.size();
                 for (int y = 0; y < delta; y++) {
-                    generated.addCell("");
+                    PdfPCell cell = new PdfPCell(new Phrase((String)null));
+                    cell.setColspan(1);
+                    cell.setBorder(3);
+                    generated.addCell(cell);
                 }
             }
         }
