@@ -90,4 +90,28 @@ class PdfTransformerTest {
         writer.write(result)
         writer.close()
     }
+
+    @Test
+    void basicTableTest() {
+        def html = """
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                   </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                        <td>John Smith"</td>
+                        <td>john.smith@test-company.com</td>
+                        <td>Engineering</td>
+                    </tr>
+                </tbody>
+           </table>
+        """.bytes
+
+        cssTest("", "basic-table", html)
+    }
 }

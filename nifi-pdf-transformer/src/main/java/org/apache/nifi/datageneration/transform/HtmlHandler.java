@@ -1,11 +1,14 @@
 package org.apache.nifi.datageneration.transform;
 
 import com.lowagie.text.Anchor;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Cell;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Table;
 import org.apache.nifi.processor.exception.ProcessException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -17,6 +20,9 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.nifi.datageneration.transform.HtmlUtils.countHeaders;
+import static org.apache.nifi.datageneration.transform.HtmlUtils.getHeaders;
 
 public class HtmlHandler implements PdfHandler {
     public static String CSS_SELECTOR_ATTRIBUTE = "css.selector";
@@ -47,14 +53,14 @@ public class HtmlHandler implements PdfHandler {
         for (int x = 0; x < selected.size(); x++) {
             Element element = selected.get(x);
             Paragraph paragraph = new Paragraph();
-            convertElement(element, paragraph);
+            convertElement(element, document, paragraph);
             if (!paragraph.isEmpty()) {
                 document.add(paragraph);
             }
         }
     }
 
-    private void convertElement(Element element, Paragraph para) {
+    private void convertElement(Element element, Document document, Paragraph para) {
         if (element.children().size() == 0 && !element.text().isEmpty()) {
             para.add(new Chunk(element.text()));
         }
@@ -74,10 +80,31 @@ public class HtmlHandler implements PdfHandler {
                     anchor.setReference(child.attr("href"));
                     anchor.setFont(font);
                     para.add(anchor);
+                } else if (name.equalsIgnoreCase("table")) {
+                    handleTable(document, elem);
                 } else {
                     para.add(new Chunk(elem.text()));
                 }
             }
+        }
+    }
+
+    private void handleTable(Document document, Element table) {
+        int columnCount = countHeaders(table);
+        try {
+            Table generated = new Table(columnCount);
+            List<String> headers = getHeaders(table);
+            if (!headers.isEmpty()) {
+                for (int x = 0; x < headers.size(); x++) {
+                    Cell cell = new Cell(new Chunk(headers.get(x)));
+                    cell.setBorder(3);
+                    generated.addCell(cell);
+                }
+            }
+
+            document.add(generated);
+        } catch (DocumentException e) {
+            throw new ProcessException(e);
         }
     }
 }
