@@ -9,4 +9,9 @@ public class DocxHtmlHandler implements WordProcessorHandler {
     public byte[] transform(byte[] input, Map<String, String> attributes) throws Exception {
         return new byte[0];
     }
+
+    @Override
+    public String getMimeType() {
+        return null;
+    }
 }

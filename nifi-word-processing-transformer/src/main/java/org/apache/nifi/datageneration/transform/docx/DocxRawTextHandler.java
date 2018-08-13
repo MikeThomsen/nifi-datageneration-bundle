@@ -55,4 +55,9 @@ public class DocxRawTextHandler implements WordProcessorHandler {
 
         return retVal;
     }
+
+    @Override
+    public String getMimeType() {
+        return null;
+    }
 }
