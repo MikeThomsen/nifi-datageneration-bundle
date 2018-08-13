@@ -1,0 +1,1 @@
+{{ internet_public_ip_v4_address() }}

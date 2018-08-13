@@ -1,0 +1,1 @@
+{{ internet_ip_v6_cidr() }}

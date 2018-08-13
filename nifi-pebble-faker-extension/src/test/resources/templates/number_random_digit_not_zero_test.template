@@ -1,0 +1,1 @@
+{{ number_random_digit_not_zero() }}
