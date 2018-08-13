@@ -7,6 +7,7 @@ import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.controller.ConfigurationContext;
 import org.apache.nifi.datageneration.transform.docx.DocxHtmlHandler;
 import org.apache.nifi.datageneration.transform.docx.DocxRawTextHandler;
+import org.apache.nifi.processor.exception.ProcessException;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,11 +56,15 @@ public class WordProcessorTransformer extends AbstractControllerService implemen
 
     @Override
     public byte[] transform(byte[] input, Map<String, String> attributes) {
-        return new byte[0];
+        try {
+            return wpHandler.transform(input, attributes);
+        } catch (Exception ex) {
+            throw new ProcessException(ex);
+        }
     }
 
     @Override
     public String getMimeType() {
-        return null;
+        return wpHandler.getMimeType();
     }
 }
