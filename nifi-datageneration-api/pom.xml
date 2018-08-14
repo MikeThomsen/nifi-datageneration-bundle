@@ -37,5 +37,11 @@
             <artifactId>nifi-utils</artifactId>
             <version>${nifi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-lookup-service-api</artifactId>
+            <version>1.7.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
