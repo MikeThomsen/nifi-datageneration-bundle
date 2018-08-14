@@ -40,6 +40,7 @@
         <module>nifi-pebble-template-registry</module>
         <module>nifi-pebble-template-registry-nar</module>
         <module>nifi-random-lookup-services</module>
+        <module>nifi-random-lookup-services-nar</module>
     </modules>
 
     <dependencyManagement>
