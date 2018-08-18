@@ -8,6 +8,7 @@ import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.datageneration.transform.TransformationService;
+import org.apache.nifi.datageneration.validation.TemplateOutputValidator;
 import org.apache.nifi.expression.ExpressionLanguageScope;
 import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.processor.AbstractProcessor;
@@ -58,6 +59,15 @@ public class TemplateProcessor extends AbstractProcessor {
         .required(false)
         .build();
 
+    static final PropertyDescriptor VALIDATOR = new PropertyDescriptor.Builder()
+        .name("validation-service")
+        .displayName("Output Validator")
+        .description("A service that will validate the output of the template before it is passed to any configured " +
+                "transformation service.")
+        .identifiesControllerService(TemplateOutputValidator.class)
+        .required(false)
+        .build();
+
     static final PropertyDescriptor MIME_TYPE = new PropertyDescriptor.Builder()
         .name("mime-type")
         .displayName("MIME Type")
@@ -87,6 +97,7 @@ public class TemplateProcessor extends AbstractProcessor {
     static {
         List<PropertyDescriptor> _temp = new ArrayList<>();
         _temp.add(REGISTRY);
+        _temp.add(VALIDATOR);
         _temp.add(TRANSFORMER);
         _temp.add(MIME_TYPE);
         PROPERTIES = Collections.unmodifiableList(_temp);
@@ -100,6 +111,7 @@ public class TemplateProcessor extends AbstractProcessor {
 
     private volatile TemplateRegistry registry;
     private volatile TransformationService transformationService;
+    private volatile TemplateOutputValidator outputValidator;
 
     @Override
     public Set<Relationship> getRelationships() {
@@ -116,6 +128,9 @@ public class TemplateProcessor extends AbstractProcessor {
         registry = context.getProperty(REGISTRY).asControllerService(TemplateRegistry.class);
         transformationService = context.getProperty(TRANSFORMER).isSet()
             ? context.getProperty(TRANSFORMER).asControllerService(TransformationService.class)
+            : null;
+        outputValidator = context.getProperty(VALIDATOR).isSet()
+            ? context.getProperty(VALIDATOR).asControllerService(TemplateOutputValidator.class)
             : null;
     }
 
@@ -138,6 +153,10 @@ public class TemplateProcessor extends AbstractProcessor {
                 output = registry.generateByName(model, name);
             } else {
                 throw new ProcessException(String.format("Input flowfile did not have either %s or %s defined as attributes.", TEMPLATE_NAME, TEMPLATE_TEXT));
+            }
+
+            if (outputValidator != null) {
+                outputValidator.validate(output);
             }
 
             byte[] content = getOutputFlowFileContent(output, input.getAttributes());
