@@ -13,4 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-org.apache.nifi.datageneration.randomlookup.RandomJsonMapLookupService
+org.apache.nifi.datageneration.validation.FreeTextLineOutputValidator
+org.apache.nifi.datageneration.validation.MultiStageValidator
+org.apache.nifi.datageneration.validation.ValidationRouter
+org.apache.nifi.datageneration.validation.XmlSchemaOutputValidator

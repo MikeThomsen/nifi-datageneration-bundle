@@ -156,7 +156,7 @@ public class TemplateProcessor extends AbstractProcessor {
             }
 
             if (outputValidator != null) {
-                outputValidator.validate(output);
+                outputValidator.validate(output, input.getAttributes());
             }
 
             byte[] content = getOutputFlowFileContent(output, input.getAttributes());
