@@ -33,6 +33,8 @@
         <module>nifi-datageneration-api-nar</module>
         <module>nifi-datageneration-nar</module>
         <module>nifi-datageneration-processors</module>
+        <module>nifi-datageneration-validators</module>
+        <module>nifi-datageneration-validators-nar</module>
         <module>nifi-pdf-transformer</module>
         <module>nifi-pdf-transformer-nar</module>
         <module>nifi-word-processing-transformer</module>
