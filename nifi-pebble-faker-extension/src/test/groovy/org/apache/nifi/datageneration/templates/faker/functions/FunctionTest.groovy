@@ -1501,6 +1501,12 @@ class FunctionTest {
 	}
 
 	@Test
+	void testUUIDFunction() {
+		def result = basicTemplateTest("templates/uuid_test.template")
+		postExecute(result) { }
+	}
+
+	@Test
 	void testWeatherDescriptionFunction() {
 		def result = basicTemplateTest("templates/weather_description_test.template")
 		postExecute(result) { }

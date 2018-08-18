@@ -278,6 +278,7 @@ public class FakerExtension implements Extension {
             put("twinpeaks_character", new TwinPeaksCharacterFunction(faker));
             put("twinpeaks_location", new TwinPeaksLocationFunction(faker));
             put("twinpeaks_quote", new TwinPeaksQuoteFunction(faker));
+            put("uuid", new UUIDFunction());
             put("university_name", new UniversityNameFunction(faker));
             put("university_prefix", new UniversityPrefixFunction(faker));
             put("university_suffix", new UniversitySuffixFunction(faker));
