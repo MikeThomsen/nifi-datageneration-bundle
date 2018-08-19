@@ -1,0 +1,6 @@
+<document>
+    <firstName>John</firstName>
+    <lastName>Smith</lastName>
+    <age>35</age>
+    <employed>true</employed>
+</document>

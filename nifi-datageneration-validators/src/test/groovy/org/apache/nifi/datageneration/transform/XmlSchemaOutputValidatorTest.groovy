@@ -22,12 +22,20 @@ class XmlSchemaOutputValidatorTest {
 
     @Test
     void testSchemaLocation() {
+        runner.setProperty(validator, XmlSchemaOutputValidator.SCHEMA_LOCATION, "src/test/resources/employee.xsd")
+        runner.enableControllerService(validator)
+        runner.assertValid()
 
+        validator.validate(new File("src/test/resources/employee.xml").text, [:])
     }
 
     @Test
     void testSchemaBody() {
+        runner.setProperty(validator, XmlSchemaOutputValidator.SCHEMA_BODY, new File("src/test/resources/employee.xsd").text)
+        runner.enableControllerService(validator)
+        runner.assertValid()
 
+        validator.validate(new File("src/test/resources/employee.xml").text, [:])
     }
 
     @Test
