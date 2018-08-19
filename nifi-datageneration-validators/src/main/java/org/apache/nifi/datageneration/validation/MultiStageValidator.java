@@ -19,7 +19,7 @@ public class MultiStageValidator extends DynamicValidator implements TemplateOut
     @Override
     public PropertyDescriptor getSupportedDynamicPropertyDescriptor(String name) {
         Matcher matcher = DYNAMIC_NAME_VALIDATOR.matcher(name);
-        if (matcher.matches()) {
+        if (matcher.lookingAt()) {
             return super.getSupportedDynamicPropertyDescriptor(name);
         } else {
             throw new ProcessException("Property name patterns should start with a number and a period. Ex. \"1.firstStep\"");
