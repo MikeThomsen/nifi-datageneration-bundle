@@ -14,11 +14,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ValidationRouter extends DynamicValidator implements TemplateOutputValidator {
+    public static final String DEFAULT_ATTRIBUTE = "output.validator";
     public static final PropertyDescriptor VALIDATOR_ATTRIBUTE = new PropertyDescriptor.Builder()
         .name("validator-attribute")
         .displayName("Validator Attribute")
         .description("The name of the flowfile attribute that contains the validator to use.")
-        .defaultValue("${output.validator}")
+        .defaultValue(DEFAULT_ATTRIBUTE)
         .addValidator(StandardValidators.NON_BLANK_VALIDATOR)
         .build();
 
@@ -48,7 +49,7 @@ public class ValidationRouter extends DynamicValidator implements TemplateOutput
             }
         }
         validators = new ConcurrentHashMap<>(_temp);
-        flowFileAttribute = context.getProperty(VALIDATOR_ATTRIBUTE).evaluateAttributeExpressions().getValue();
+        flowFileAttribute = context.getProperty(VALIDATOR_ATTRIBUTE).getValue();
     }
 
     @OnDisabled
@@ -60,6 +61,11 @@ public class ValidationRouter extends DynamicValidator implements TemplateOutput
     public void validate(String input, Map<String, String> attributes) {
         if (!attributes.containsKey(flowFileAttribute)) {
             throw new ValidationException(String.format("Flowfile attributes did not contain \"%s\"", flowFileAttribute));
+        } else if (!validators.containsKey(attributes.get(flowFileAttribute))) {
+            throw new ValidationException(String.format("Validator \"%s\" was not registered.", attributes.get(flowFileAttribute)));
         }
+
+        TemplateOutputValidator validator = validators.get(attributes.get(flowFileAttribute));
+        validator.validate(input, attributes);
     }
 }
