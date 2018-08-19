@@ -5,6 +5,7 @@ import org.apache.nifi.datageneration.validation.MultiStageValidator
 import org.apache.nifi.datageneration.validation.TemplateOutputValidator
 import org.apache.nifi.util.TestRunner
 import org.apache.nifi.util.TestRunners
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -35,6 +36,31 @@ class MultiStageValidatorTest {
         }
         runner.enableControllerService(validator)
         runner.assertValid()
+    }
+
+    @Test
+    void testBadProperties() {
+        def validators = [
+            "1.first": new Validator1(),
+            "2.second": new Validator2(),
+            "third.3": new Validator3()
+        ]
+
+        Throwable exception
+        try {
+            validators.each {
+                runner.addControllerService(it.value.class.name, it.value)
+                runner.setProperty(validator, it.key, it.value.class.name)
+                runner.enableControllerService(it.value)
+            }
+            runner.enableControllerService(validator)
+        } catch (Throwable t) {
+            exception = t
+        } finally {
+            Assert.assertNotNull(exception)
+            Assert.assertTrue(exception.message.contains("Property name patterns should start with a number and a period"))
+        }
+        runner.assertNotValid()
     }
 }
 
