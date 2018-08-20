@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description></description>
+    <groupId>83e95352-0163-1000-9e7e-92cdd70b3a22</groupId>
+    <name>HTML to DOCX Transformer Test</name>
+    <snippet>
+        <processGroups>
+            <id>508dab93-62dc-308c-0000-000000000000</id>
+            <parentGroupId>c9686e62-7390-31fa-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <comments></comments>
+            <contents>
+                <connections>
+                    <id>2d4795d4-86a5-3377-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>a472d591-ca5a-33fd-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>8ff55dba-922a-3155-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>fd83e379-fdea-3d59-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>a3960ee1-f039-31fd-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>31575113-28b3-3a54-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <name></name>
+                    <selectedRelationships>original</selectedRelationships>
+                    <source>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>f5a5568f-bcfd-30b3-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>8445ec02-0833-3e29-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <name></name>
+                    <selectedRelationships>failure</selectedRelationships>
+                    <source>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>fb682396-b07c-3362-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>acfd2bd4-f34c-36fa-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>508dab93-62dc-308c-0000-000000000000</groupId>
+                        <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <controllerServices>
+                    <id>447ff2c5-fee5-3191-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <bundle>
+                        <artifact>nifi-datageneration-services-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.1</version>
+                    </bundle>
+                    <comments></comments>
+                    <descriptors>
+                        <entry>
+                            <key>extension</key>
+                            <value>
+<name>extension</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>extension-classes</key>
+                            <value>
+<name>extension-classes</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>article</key>
+                            <value>
+<name>article</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>simple_table</key>
+                            <value>
+<name>simple_table</name>
+                            </value>
+                        </entry>
+                    </descriptors>
+                    <name>PebbleTemplateRegistry</name>
+                    <persistsState>false</persistsState>
+                    <properties>
+                        <entry>
+                            <key>extension</key>
+                            <value>/tmp/faker.jar</value>
+                        </entry>
+                        <entry>
+                            <key>extension-classes</key>
+                            <value>org.apache.nifi.datageneration.templates.faker.FakerExtension</value>
+                        </entry>
+                        <entry>
+                            <key>article</key>
+                            <value>&lt;html&gt;
+&lt;body&gt;
+	&lt;p&gt;{{header}}&lt;/p&gt;
+	&lt;table&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th&gt;First Name&lt;/th&gt;
+				&lt;th&gt;Last Name&lt;/th&gt;
+				&lt;th&gt;Department&lt;/th&gt;
+				&lt;th&gt;Years of Service&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+		{% for user in users %}
+			&lt;tr&gt;
+				&lt;td&gt;{{user.firstName}}&lt;/td&gt;
+				&lt;td&gt;{{user.lastName}}&lt;/td&gt;
+				&lt;td&gt;{{user.department}}&lt;/td&gt;
+				&lt;td&gt;{{user.yearsOfService}}&lt;/td&gt;
+			&lt;/tr&gt;
+		{% endfor %}
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;blockquote&gt;{{summary}}&lt;/blockquote&gt;
+	{% for para in body %}
+	&lt;p&gt;{{para}}&lt;/p&gt;
+	{% endfor %}
+&lt;/body&gt;
+&lt;/html&gt;</value>
+                        </entry>
+                        <entry>
+                            <key>simple_table</key>
+                            <value>&lt;html&gt;
+&lt;body&gt;
+	&lt;table&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th&gt;First Name&lt;/th&gt;
+				&lt;th&gt;Last Name&lt;/th&gt;
+				&lt;th&gt;Department&lt;/th&gt;
+				&lt;th&gt;Years of Service&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+		{% for user in users %}
+			&lt;tr&gt;
+				&lt;td&gt;{{user.firstName}}&lt;/td&gt;
+				&lt;td&gt;{{user.lastName}}&lt;/td&gt;
+				&lt;td&gt;{{user.department}}&lt;/td&gt;
+				&lt;td&gt;{{user.yearsOfService}}&lt;/td&gt;
+			&lt;/tr&gt;
+		{% endfor %}
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+                        </entry>
+                    </properties>
+                    <state>ENABLED</state>
+                    <type>org.apache.nifi.datageneration.templates.PebbleTemplateRegistry</type>
+                </controllerServices>
+                <controllerServices>
+                    <id>d78e901b-cbf2-38bb-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <bundle>
+                        <artifact>nifi-word-processing-transformer-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.1</version>
+                    </bundle>
+                    <comments></comments>
+                    <descriptors>
+                        <entry>
+                            <key>handler</key>
+                            <value>
+<name>handler</name>
+                            </value>
+                        </entry>
+                    </descriptors>
+                    <name>WordProcessorTransformer</name>
+                    <persistsState>false</persistsState>
+                    <properties>
+                        <entry>
+                            <key>handler</key>
+                            <value>docx_html</value>
+                        </entry>
+                    </properties>
+                    <state>ENABLED</state>
+                    <type>org.apache.nifi.datageneration.transform.WordProcessorTransformer</type>
+                </controllerServices>
+                <processors>
+                    <id>31575113-28b3-3a54-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1426.6069980067814</x>
+                        <y>2069.0524184829274</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Log Level</key>
+<value>
+    <name>Log Level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>
+    <name>Log Payload</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+<value>
+    <name>Attributes to Log</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>
+    <name>attributes-to-log-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+<value>
+    <name>Attributes to Ignore</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+<value>
+    <name>attributes-to-ignore-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+<value>
+    <name>Log prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>
+    <name>character-set</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Log Level</key>
+<value>info</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>.*</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>UTF-8</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>LogAttribute</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                </processors>
+                <processors>
+                    <id>8445ec02-0833-3e29-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1860.6069980067814</x>
+                        <y>1911.0525405532399</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Log Level</key>
+<value>
+    <name>Log Level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>
+    <name>Log Payload</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+<value>
+    <name>Attributes to Log</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>
+    <name>attributes-to-log-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+<value>
+    <name>Attributes to Ignore</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+<value>
+    <name>attributes-to-ignore-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+<value>
+    <name>Log prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>
+    <name>character-set</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Log Level</key>
+<value>info</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>.*</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>UTF-8</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>LogAttribute</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                </processors>
+                <processors>
+                    <id>967a5de8-7fe7-3e31-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1250.6069980067814</x>
+                        <y>1703.0524184829276</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-datageneration-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>template-registry</key>
+<value>
+    <identifiesControllerService>org.apache.nifi.datageneration.templates.TemplateRegistry</identifiesControllerService>
+    <name>template-registry</name>
+</value>
+                            </entry>
+                            <entry>
+<key>validation-service</key>
+<value>
+    <identifiesControllerService>org.apache.nifi.datageneration.validation.TemplateOutputValidator</identifiesControllerService>
+    <name>validation-service</name>
+</value>
+                            </entry>
+                            <entry>
+<key>transformer-service</key>
+<value>
+    <identifiesControllerService>org.apache.nifi.datageneration.transform.TransformationService</identifiesControllerService>
+    <name>transformer-service</name>
+</value>
+                            </entry>
+                            <entry>
+<key>mime-type</key>
+<value>
+    <name>mime-type</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>template-registry</key>
+<value>447ff2c5-fee5-3191-0000-000000000000</value>
+                            </entry>
+                            <entry>
+<key>validation-service</key>
+                            </entry>
+                            <entry>
+<key>transformer-service</key>
+<value>d78e901b-cbf2-38bb-0000-000000000000</value>
+                            </entry>
+                            <entry>
+<key>mime-type</key>
+<value>text/html</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>TemplateProcessor</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>original</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>RUNNING</state>
+                    <style/>
+                    <type>org.apache.nifi.datageneration.templates.TemplateProcessor</type>
+                </processors>
+                <processors>
+                    <id>a472d591-ca5a-33fd-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1258.6069980067814</x>
+                        <y>1413.0524184829276</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>File Size</key>
+<value>
+    <name>File Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>
+    <name>Batch Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Data Format</key>
+<value>
+    <name>Data Format</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Unique FlowFiles</key>
+<value>
+    <name>Unique FlowFiles</name>
+</value>
+                            </entry>
+                            <entry>
+<key>generate-ff-custom-text</key>
+<value>
+    <name>generate-ff-custom-text</name>
+</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>
+    <name>character-set</name>
+</value>
+                            </entry>
+                            <entry>
+<key>template.name</key>
+<value>
+    <name>template.name</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>File Size</key>
+<value>0B</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>1</value>
+                            </entry>
+                            <entry>
+<key>Data Format</key>
+<value>Text</value>
+                            </entry>
+                            <entry>
+<key>Unique FlowFiles</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>generate-ff-custom-text</key>
+<value>{
+	"users": [
+		{
+			"firstName": "John",
+			"lastName": "Smith",
+			"department": "Engineering",
+			"yearsOfService": 10
+		},
+		{
+			"firstName": "Jane",
+			"lastName": "Doe",
+			"department": "Engineering",
+			"yearsOfService": 7
+		}
+	]
+}</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>UTF-8</value>
+                            </entry>
+                            <entry>
+<key>template.name</key>
+<value>simple_table</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>60 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>Simple Table Generator</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.GenerateFlowFile</type>
+                </processors>
+                <processors>
+                    <id>acfd2bd4-f34c-36fa-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>782.6069980067814</x>
+                        <y>2058.0524184829274</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Log Level</key>
+<value>
+    <name>Log Level</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>
+    <name>Log Payload</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+<value>
+    <name>Attributes to Log</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>
+    <name>attributes-to-log-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+<value>
+    <name>Attributes to Ignore</name>
+</value>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+<value>
+    <name>attributes-to-ignore-regex</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+<value>
+    <name>Log prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>
+    <name>character-set</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Log Level</key>
+<value>info</value>
+                            </entry>
+                            <entry>
+<key>Log Payload</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Log</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-log-regex</key>
+<value>.*</value>
+                            </entry>
+                            <entry>
+<key>Attributes to Ignore</key>
+                            </entry>
+                            <entry>
+<key>attributes-to-ignore-regex</key>
+                            </entry>
+                            <entry>
+<key>Log prefix</key>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>UTF-8</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>LogAttribute</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                </processors>
+                <processors>
+                    <id>fd83e379-fdea-3d59-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>840.6070590419376</x>
+                        <y>1411.0524184829276</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>File Size</key>
+<value>
+    <name>File Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>
+    <name>Batch Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Data Format</key>
+<value>
+    <name>Data Format</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Unique FlowFiles</key>
+<value>
+    <name>Unique FlowFiles</name>
+</value>
+                            </entry>
+                            <entry>
+<key>generate-ff-custom-text</key>
+<value>
+    <name>generate-ff-custom-text</name>
+</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>
+    <name>character-set</name>
+</value>
+                            </entry>
+                            <entry>
+<key>template.name</key>
+<value>
+    <name>template.name</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>File Size</key>
+<value>0B</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>1</value>
+                            </entry>
+                            <entry>
+<key>Data Format</key>
+<value>Text</value>
+                            </entry>
+                            <entry>
+<key>Unique FlowFiles</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>generate-ff-custom-text</key>
+<value>{
+	"header": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultricies libero non dolor mollis venenatis in porta neque. Praesent sit amet tempor metus. Nunc vitae hendrerit nibh. Pellentesque in massa ut mauris porttitor laoreet et eu ante. Praesent eu velit sed sapien suscipit sagittis ac in diam. Sed hendrerit in nunc bibendum tristique. Nam sagittis feugiat dui, in congue erat. Aliquam dignissim imperdiet auctor. Quisque semper urna metus, non semper nunc aliquam sed. Pellentesque risus justo, vestibulum eu quam nec, faucibus maximus arcu. Donec luctus, leo vitae pharetra ullamcorper, leo lectus vulputate est, ullamcorper sagittis diam dolor ac leo. Mauris sit amet volutpat arcu, lacinia luctus massa. Aenean tempus eget libero ut ultrices.",
+	"body": [
+		"Curabitur id nulla consectetur mauris aliquet interdum. Sed vel accumsan augue, vitae varius erat. Vivamus eu felis pretium, gravida lacus ut, rhoncus mauris. Sed semper fermentum tristique. Fusce magna metus, fringilla sit amet condimentum dictum, iaculis ac nulla. Integer vulputate est ipsum, non imperdiet orci cursus sit amet. Donec sit amet sapien sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+		"Aliquam sagittis risus ex, in tempus nunc euismod et. Aenean dapibus pretium sem a porttitor. Nullam scelerisque purus lacus, in tincidunt eros semper quis. Phasellus diam magna, aliquam quis est vitae, rutrum fermentum velit. Mauris mi metus, bibendum quis imperdiet eu, rhoncus non purus. Ut commodo sapien a pellentesque egestas. Nam suscipit orci nec est mollis, at ullamcorper est eleifend. Donec sollicitudin nulla leo, et gravida lectus iaculis sed. Quisque id arcu suscipit, accumsan metus non, ultricies ante. Proin ut tempor lectus, eu ultricies ipsum.",
+		"Mauris nec justo orci. Mauris at pellentesque est, non malesuada lectus. Praesent sit amet faucibus urna, eget sodales nisl. Pellentesque id elit ut turpis commodo vehicula quis eu enim. Aliquam nunc nisl, cursus eu elit ac, pharetra consectetur dolor. Donec dignissim nisi et dolor finibus facilisis. Morbi sit amet tincidunt nibh, quis porttitor odio. Sed at eleifend arcu. Praesent lorem mauris, vulputate et euismod sed, convallis eget leo. Pellentesque fermentum molestie lorem at porttitor. Curabitur blandit, est gravida interdum imperdiet, lacus magna egestas ligula, id ultricies tortor tortor vel augue. Ut eu mollis urna, vitae aliquet velit.",
+		"Pellentesque blandit hendrerit nulla at sagittis. Aliquam id velit quis lorem semper laoreet sed vel neque. Cras aliquet auctor turpis, ut dictum ligula molestie vitae. Praesent laoreet arcu et luctus convallis. In non ullamcorper justo. Nunc ultricies elementum ultrices. In hac habitasse platea dictumst. Suspendisse vel euismod odio. In egestas enim eu massa porta, quis viverra lectus sagittis. Nunc vitae tristique nulla. Curabitur a pellentesque massa, eu pharetra nunc. Quisque aliquam posuere mi, semper aliquet metus fringilla ac. Nam a urna ac justo facilisis venenatis. Etiam venenatis pulvinar sapien quis iaculis. Proin nec imperdiet sem."
+
+	],
+	"summary": "Mauris nec justo orci. Mauris at pellentesque est, non malesuada lectus.",
+	"users": [{
+			"firstName": "John",
+			"lastName": "Smith",
+			"department": "Engineering",
+			"yearsOfService": 10
+		},
+		{
+			"firstName": "Jane",
+			"lastName": "Doe",
+			"department": "Engineering",
+			"yearsOfService": 7
+		}
+	]
+}</value>
+                            </entry>
+                            <entry>
+<key>character-set</key>
+<value>UTF-8</value>
+                            </entry>
+                            <entry>
+<key>template.name</key>
+<value>article</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>60 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>Article With Tables</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>RUNNING</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.GenerateFlowFile</type>
+                </processors>
+            </contents>
+            <name>HTML Word Processor Transformer Test</name>
+            <variables/>
+        </processGroups>
+    </snippet>
+    <timestamp>08/20/2018 12:22:28 EDT</timestamp>
+</template>

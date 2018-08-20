@@ -31,6 +31,7 @@
         <module>nifi-pebble-faker-extension</module>
         <module>nifi-datageneration-api</module>
         <module>nifi-datageneration-api-nar</module>
+        <module>nifi-datageneration-html-utils</module>
         <module>nifi-datageneration-nar</module>
         <module>nifi-datageneration-processors</module>
         <module>nifi-datageneration-validators</module>
