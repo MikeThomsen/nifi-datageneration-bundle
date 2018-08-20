@@ -7,6 +7,8 @@ import org.apache.nifi.controller.ConfigurationContext;
 import org.apache.nifi.processor.exception.ProcessException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -28,12 +30,21 @@ public class MultiStageValidator extends DynamicValidator implements TemplateOut
 
     @OnEnabled
     public void onEnabled(ConfigurationContext context) {
-        List<TemplateOutputValidator> _temp = new ArrayList<>();
+        Map<Integer, TemplateOutputValidator> _map = new HashMap<>();
         for (PropertyDescriptor desc : context.getProperties().keySet()) {
             if (desc.isDynamic()) {
-                _temp.add(context.getProperty(desc).asControllerService(TemplateOutputValidator.class));
+                String[] parts = desc.getName().split("\\.");
+                int key = Integer.valueOf(parts[0]);
+                _map.put(key, context.getProperty(desc).asControllerService(TemplateOutputValidator.class));
             }
         }
+        List<Integer> _keys = new ArrayList<>(_map.keySet());
+        Collections.sort(_keys);
+        List<TemplateOutputValidator> _temp = new ArrayList<>();
+        for (Integer x : _keys) {
+            _temp.add(_map.get(x));
+        }
+
         validators = _temp;
     }
 

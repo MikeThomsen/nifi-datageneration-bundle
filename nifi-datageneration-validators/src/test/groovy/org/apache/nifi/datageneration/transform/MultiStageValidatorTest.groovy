@@ -24,14 +24,14 @@ class MultiStageValidatorTest {
     @Test
     void testGoodProperties() {
         def validators = [
-            "1.first": new Validator1(),
-            "2.second": new Validator2(),
-            "3.third": new Validator3()
+            "1.first": new IncrementalValidator(instance: 1),
+            "2.second": new IncrementalValidator(instance: 2),
+            "3.third": new IncrementalValidator(instance: 3)
         ]
 
         validators.each {
-            runner.addControllerService(it.value.class.name, it.value)
-            runner.setProperty(validator, it.key, it.value.class.name)
+            runner.addControllerService(it.key, it.value)
+            runner.setProperty(validator, it.key, it.key)
             runner.enableControllerService(it.value)
         }
         runner.enableControllerService(validator)
@@ -41,16 +41,16 @@ class MultiStageValidatorTest {
     @Test
     void testBadProperties() {
         def validators = [
-            "1.first": new Validator1(),
-            "2.second": new Validator2(),
-            "third.3": new Validator3()
+            "1.first": new IncrementalValidator(),
+            "2.second": new IncrementalValidator(),
+            "third.3": new IncrementalValidator()
         ]
 
         Throwable exception
         try {
             validators.each {
-                runner.addControllerService(it.value.class.name, it.value)
-                runner.setProperty(validator, it.key, it.value.class.name)
+                runner.addControllerService(it.key, it.value)
+                runner.setProperty(validator, it.key, it.key)
                 runner.enableControllerService(it.value)
             }
             runner.enableControllerService(validator)
@@ -62,31 +62,28 @@ class MultiStageValidatorTest {
         }
         runner.assertNotValid()
     }
-}
+    
+    @Test
+    void testExecution() {
+        testGoodProperties()
+        validator.validate("Test message", [:])
 
-class Validator1 extends AbstractControllerService implements TemplateOutputValidator {
-    Map results
-
-    @Override
-    void validate(String input, Map<String, String> attributes) {
-        results[this.class.name] = true
+        Assert.assertEquals(3, IncrementalValidator.NAMES.size())
+        def x = IncrementalValidator.NAMES
+        int previous = 0
+        IncrementalValidator.NAMES.each { name ->
+            Assert.assertTrue("Out of order",name > previous)
+            previous = name
+        }
     }
 }
 
-class Validator2 extends AbstractControllerService implements TemplateOutputValidator {
-    Map results
+class IncrementalValidator extends AbstractControllerService implements TemplateOutputValidator {
+    static final List<Integer> NAMES = []
+    int instance
 
     @Override
     void validate(String input, Map<String, String> attributes) {
-        results[this.class.name] = true
-    }
-}
-
-class Validator3 extends AbstractControllerService implements TemplateOutputValidator {
-    Map results
-
-    @Override
-    void validate(String input, Map<String, String> attributes) {
-        results[this.class.name] = true
+        NAMES << instance
     }
 }
