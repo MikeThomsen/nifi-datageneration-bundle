@@ -54,6 +54,29 @@ class PdfTransformerTest {
                 <p>Ut eleifend purus id erat consequat, non scelerisque turpis bibendum.</p>
                 <p><a href="http://github.com">Nullam interdum urna eget sagittis facilisis.</a></p>
                 <p>Vestibulum ac quam sollicitudin, rhoncus eros quis, sagittis tellus.</p>
+                <table style="border: 1px solid black; width: 500px; align:center">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Engineering</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Smith</td>
+                            <td>Engineering</td>
+                        </tr>
+                        <tr>
+                            <td>Jane</td>
+                            <td>Doe</td>
+                            <td>Engineering</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h2>Embedded Image</h2>
+                <img src="src/test/resources/pexels-photo-355952.jpeg"/>
             </body>
             </html>
         """.bytes
