@@ -1,6 +1,6 @@
 package org.apache.nifi.datageneration.transform
 
-import com.lowagie.text.pdf.PdfReader
+import com.itextpdf.kernel.pdf.PdfReader
 import org.apache.nifi.util.TestRunner
 import org.apache.nifi.util.TestRunners
 import org.junit.Assert
@@ -11,19 +11,6 @@ class PdfTransformerTest {
     PdfTransformer transformer
     TestRunner runner
 
-    static final byte[] BASIC_HTML = """
-            <html>
-            <body>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Donec semper massa vitae auctor efficitur.</p>
-                <p>Nunc dapibus nisi sed <a href="http://www.duckduckgo.com">mauris</a> pellentesque aliquam.</p>
-                <p>Ut eleifend purus id erat consequat, non scelerisque turpis bibendum.</p>
-                <p><a href="http://github.com">Nullam interdum urna eget sagittis facilisis.</a></p>
-                <p>Vestibulum ac quam sollicitudin, rhoncus eros quis, sagittis tellus.</p>
-            </body>
-            </html>
-        """.bytes
-
     @Before
     void setup() {
         transformer = new PdfTransformer()
@@ -32,6 +19,12 @@ class PdfTransformerTest {
         runner.setProperty(PdfTestProcessor.TRANSFORMER, "transformer")
         runner.enableControllerService(transformer)
         runner.assertValid()
+    }
+
+    def dump = { name, result ->
+        def writer = new FileOutputStream("/tmp/${name}.pdf")
+        writer.write(result)
+        writer.close()
     }
 
     @Test
@@ -46,174 +39,36 @@ class PdfTransformerTest {
 
         def result = transformer.transform(text, [:])
 
-        def reader = new PdfReader(result)
-        Assert.assertTrue(reader.numberOfPages == 1)
+        def reader = new PdfReader(new ByteArrayInputStream(result))
+        Assert.assertTrue(reader.fileLength > 0)
     }
 
     @Test
-    void testTransformHtmWithCssSelector() {
-        cssTest("p", "test")
-    }
+    void testTransformHtml() {
+        def html = """
+            <html>
+            <body>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Donec semper massa vitae auctor efficitur.</p>
+                <p>Nunc dapibus nisi sed <a href="http://www.duckduckgo.com">mauris</a> pellentesque aliquam.</p>
+                <p>Ut eleifend purus id erat consequat, non scelerisque turpis bibendum.</p>
+                <p><a href="http://github.com">Nullam interdum urna eget sagittis facilisis.</a></p>
+                <p>Vestibulum ac quam sollicitudin, rhoncus eros quis, sagittis tellus.</p>
+            </body>
+            </html>
+        """.bytes
 
-    @Test
-    void testTransformHtmWithBasicBodyWalk() {
-        cssTest("", "css-no-selector")
-    }
-
-    @Test
-    void testTransformHtmlWithBasicDOMWalk() {
-        cssTest("", "asterick", """
-            <p>Hello, world</p>
-           Hello, world
-           Buongiorno, mondo!<br/>
-           <p>Ciao</p>
-        """.bytes)
-    }
-
-    void cssTest(String selector, String fileName) {
-        cssTest(selector, fileName, BASIC_HTML)
-    }
-
-    void cssTest(String selector, String fileName, byte[] html) {
         runner.disableControllerService(transformer)
         runner.setProperty(transformer, PdfTransformer.HANDLER, PdfTransformer.HTML)
         runner.enableControllerService(transformer)
 
+        def result = transformer.transform(html)
 
+        def reader = new PdfReader(new ByteArrayInputStream(result))
 
-        def result = transformer.transform(html, [(HtmlHandler.CSS_SELECTOR_ATTRIBUTE): selector])
-        def reader = new PdfReader(result)
-        Assert.assertTrue(reader.numberOfPages == 1)
+        Assert.assertTrue(reader.fileLength > 0)
 
-        def file = new File("/tmp/${fileName}.pdf")
-        def writer = new FileOutputStream(file)
-        writer.write(result)
-        writer.close()
+        dump "html", result
     }
 
-    @Test
-    void testBasicTable() {
-        def html = """
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                   </tr>
-               </thead>
-               <tbody>
-                    <tr>
-                        <td>John Smith"</td>
-                        <td>john.smith@test-company.com</td>
-                        <td>Engineering</td>
-                    </tr>
-                </tbody>
-           </table>
-        """.bytes
-
-        cssTest("", "basic-table", html)
-    }
-
-    @Test
-    void testTableWithNoHeaders() {
-        def html = """
-            <table>
-               <tbody>
-                    <tr>
-                        <td>John Smith"</td>
-                        <td>john.smith@test-company.com</td>
-                        <td>Engineering</td>
-                    </tr>
-                </tbody>
-           </table>
-        """.bytes
-
-        cssTest("", "table-no-headers", html)
-    }
-
-    @Test
-    void testTableWithRawRows() {
-        def html = """
-            <table>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                </tr>
-           </table>
-        """.bytes
-
-        cssTest("", "table-raw-rows", html)
-    }
-
-    @Test
-    void testTableWithUnbalancedRows() {
-        def html = """
-            <table>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                </tr>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                    <td>Employee Level 99</td>
-                </tr>
-           </table>
-        """.bytes
-
-        cssTest("", "table-unbalanced-rows", html)
-    }
-
-    @Test
-    void testTableWithUnbalancedRowsAndHeaders() {
-        def html = """
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Employee Level</th>
-                        <th>Manager</th>
-                   </tr>
-               </thead>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                </tr>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                    <td>Level 99</td>
-                </tr>
-                <tr>
-                    <td>John Smith"</td>
-                    <td>john.smith@test-company.com</td>
-                    <td>Engineering</td>
-                    <td></td>
-                    <td>Jane Doe</td>
-                </tr>
-           </table>
-        """.bytes
-
-        cssTest("", "table-unbalanced-rows-and-headers", html)
-    }
 }

@@ -1,7 +1,5 @@
 package org.apache.nifi.datageneration.transform;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.pdf.PdfWriter;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.AllowableValue;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -9,7 +7,6 @@ import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.controller.ConfigurationContext;
 import org.apache.nifi.processor.exception.ProcessException;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,24 +62,11 @@ public class PdfTransformer extends AbstractControllerService implements Transfo
 
     @Override
     public byte[] transform(byte[] input, Map<String, String> attributes) {
-        Document doc = new Document();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] retVal;
-
         try {
-            PdfWriter.getInstance(doc, out);
-            doc.open();
-
-            pdfHandler.handle(doc, input, attributes);
-
-            doc.close();
-            out.close();
-
-            retVal = out.toByteArray();
+            return pdfHandler.handle(input, attributes);
         } catch (Exception e) {
             throw new ProcessException(e);
         }
-        return retVal;
     }
 
     @Override
