@@ -15,5 +15,6 @@
 
 org.apache.nifi.datageneration.validation.FreeTextLineOutputValidator
 org.apache.nifi.datageneration.validation.MultiStageValidator
+org.apache.nifi.datageneration.validation.SchemalessXmlOutputValidator
 org.apache.nifi.datageneration.validation.ValidationRouter
 org.apache.nifi.datageneration.validation.XmlSchemaOutputValidator
