@@ -255,6 +255,21 @@
                     <state>ENABLED</state>
                     <type>org.apache.nifi.datageneration.transform.WordProcessorTransformer</type>
                 </controllerServices>
+                <controllerServices>
+                    <id>efaf56a8-19a6-3e4b-0000-000000000000</id>
+                    <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
+                    <bundle>
+                        <artifact>nifi-datageneration-validators-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.7.1</version>
+                    </bundle>
+                    <descriptors/>
+                    <name>SchemalessXmlOutputValidator</name>
+                    <persistsState>false</persistsState>
+                    <properties/>
+                    <state>ENABLED</state>
+                    <type>org.apache.nifi.datageneration.validation.SchemalessXmlOutputValidator</type>
+                </controllerServices>
                 <processors>
                     <id>31575113-28b3-3a54-0000-000000000000</id>
                     <parentGroupId>508dab93-62dc-308c-0000-000000000000</parentGroupId>
@@ -538,6 +553,7 @@
                             </entry>
                             <entry>
 <key>validation-service</key>
+<value>efaf56a8-19a6-3e4b-0000-000000000000</value>
                             </entry>
                             <entry>
 <key>transformer-service</key>
@@ -567,7 +583,7 @@
                         <autoTerminate>false</autoTerminate>
                         <name>success</name>
                     </relationships>
-                    <state>RUNNING</state>
+                    <state>STOPPED</state>
                     <style/>
                     <type>org.apache.nifi.datageneration.templates.TemplateProcessor</type>
                 </processors>
@@ -944,5 +960,5 @@
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>08/20/2018 12:22:28 EDT</timestamp>
+    <timestamp>08/28/2018 17:04:07 EDT</timestamp>
 </template>
