@@ -1,5 +1,7 @@
 package org.apache.nifi.datageneration.validation;
 
+import org.apache.nifi.annotation.documentation.CapabilityDescription;
+import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnDisabled;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -14,6 +16,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Tags({"template", "output", "validator", "multi"})
+@CapabilityDescription("A validator that allows you to chain multiple template output validators in sequential order. Each new validator " +
+        "is added as a dynamic property with the following naming convention: <step number>.name. Ex: 1.firstStep, 2.secondStep.")
 public class MultiStageValidator extends DynamicValidator implements TemplateOutputValidator {
     private volatile List<TemplateOutputValidator> validators;
     public static final Pattern DYNAMIC_NAME_VALIDATOR = Pattern.compile("^([\\d]+)\\.");

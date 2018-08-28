@@ -1,5 +1,7 @@
 package org.apache.nifi.datageneration.validation;
 
+import org.apache.nifi.annotation.documentation.CapabilityDescription;
+import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnDisabled;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -27,6 +29,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+@Tags({"template", "output", "validator", "xml", "schema"})
+@CapabilityDescription("A template output validator that validates the template output against a configured XML schema.")
 public class XmlSchemaOutputValidator extends AbstractControllerService implements TemplateOutputValidator {
     public static final PropertyDescriptor SCHEMA_LOCATION = new PropertyDescriptor.Builder()
         .name("schema-location")

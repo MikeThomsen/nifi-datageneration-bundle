@@ -1,5 +1,7 @@
 package org.apache.nifi.datageneration.validation;
 
+import org.apache.nifi.annotation.documentation.CapabilityDescription;
+import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnDisabled;
 import org.apache.nifi.annotation.lifecycle.OnEnabled;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -13,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Tags({"template", "output", "validator", "route"})
+@CapabilityDescription("Routes output to different validators based on a flowfile attribute that is configured on the " +
+        "service. The default is \"" + ValidationRouter.DEFAULT_ATTRIBUTE + ".\" The value of that attribute, if present, is " +
+        "compared to the list of dynamic property keys.")
 public class ValidationRouter extends DynamicValidator implements TemplateOutputValidator {
     public static final String DEFAULT_ATTRIBUTE = "output.validator";
     public static final PropertyDescriptor VALIDATOR_ATTRIBUTE = new PropertyDescriptor.Builder()
