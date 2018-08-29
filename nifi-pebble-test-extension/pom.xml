@@ -30,7 +30,6 @@
         <dependency>
             <groupId>io.pebbletemplates</groupId>
             <artifactId>pebble</artifactId>
-            <version>3.0.2</version>
         </dependency>
     </dependencies>
 </project>
