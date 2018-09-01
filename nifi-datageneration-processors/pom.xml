@@ -101,5 +101,14 @@
             <artifactId>groovy-all</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.confluent.avro</groupId>
+            <artifactId>avro-random-generator</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-avro-record-utils</artifactId>
+        </dependency>
     </dependencies>
 </project>
