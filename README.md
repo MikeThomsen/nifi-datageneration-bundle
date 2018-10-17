@@ -24,3 +24,7 @@ configure the PebbleEngine to use them.
 Important note: the template's output must be HTML that is written as valid XML. Doesn't have to be limited to XHTML, it just has to be 
 syntactically valid XML (ex. all tags must be closed; `<br/>` vs `<br>`). To help identify problems from that issue, `SchemalessXmlOutputValidator` should be added
 to the processor.
+
+## License
+
+All components, except for the PDF converter, are licensed under the ASLv2 license. The PDF converter is licensed under AGPL 3.0 per the iText license.
