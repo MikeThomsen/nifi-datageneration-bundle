@@ -19,11 +19,11 @@
 
     <groupId>org.apache.nifi</groupId>
     <artifactId>nifi-datageneration-bundle</artifactId>
-    <version>1.7.1</version>
+    <version>1.8.0</version>
     <packaging>pom</packaging>
 
     <properties>
-        <nifi.version>1.7.1</nifi.version>
+        <nifi.version>1.8.0</nifi.version>
     </properties>
 
     <modules>

@@ -85,7 +85,7 @@ class TestPebbleTemplateRegistry {
     @Test
     void testExtensions() {
         runner.disableControllerService(registry)
-        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION_JARS, "target/test-lib/nifi-pebble-test-extension-1.7.1.jar")
+        runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION_JARS, "target/test-lib/nifi-pebble-test-extension-1.8.0.jar")
         runner.setProperty(registry, PebbleTemplateRegistry.EXTENSION_CLASSES, "org.apache.nifi.datageneration.templates.TestExtension")
         runner.enableControllerService(registry)
         runner.assertValid()

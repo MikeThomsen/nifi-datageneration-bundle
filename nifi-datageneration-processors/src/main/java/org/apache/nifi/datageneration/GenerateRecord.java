@@ -158,7 +158,7 @@ public class GenerateRecord extends AbstractProcessor {
         final Generator generator;
         final RecordSchema schema;
 
-        FlowFile out = session.create(input);
+        FlowFile out = input != null ? session.create(input) : session.create();
 
         try {
             if (!context.getProperty(SCHEMA).isSet() && input != null) {
@@ -166,7 +166,7 @@ public class GenerateRecord extends AbstractProcessor {
                 String text = schema.getSchemaText().get();
                 generator = new Generator(text, new Random());
             } else if (!context.getProperty(SCHEMA).isSet() && input == null) {
-                throw new ProcessException("When there is no incoming connection, a avro schema must be set " +
+                throw new ProcessException("When there is no incoming connection, an avro schema must be set " +
                         "in the Schema configuration property for this processor.");
             } else {
                 Schema parsed = new Schema.Parser().parse(context.getProperty(SCHEMA).getValue());

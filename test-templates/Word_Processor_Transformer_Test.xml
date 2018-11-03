@@ -103,7 +103,7 @@
                     <bundle>
                         <artifact>nifi-datageneration-services-nar</artifact>
                         <group>org.apache.nifi</group>
-                        <version>1.7.1</version>
+                        <version>1.8.0</version>
                     </bundle>
                     <comments></comments>
                     <descriptors>
@@ -141,7 +141,7 @@
                     <bundle>
                         <artifact>nifi-word-processing-transformer-nar</artifact>
                         <group>org.apache.nifi</group>
-                        <version>1.7.1</version>
+                        <version>1.8.0</version>
                     </bundle>
                     <comments></comments>
                     <descriptors>
@@ -622,7 +622,7 @@
                     <bundle>
                         <artifact>nifi-datageneration-nar</artifact>
                         <group>org.apache.nifi</group>
-                        <version>1.7.1</version>
+                        <version>1.8.0</version>
                     </bundle>
                     <config>
                         <bulletinLevel>WARN</bulletinLevel>
