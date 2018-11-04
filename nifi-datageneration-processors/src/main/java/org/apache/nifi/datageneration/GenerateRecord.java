@@ -58,7 +58,7 @@ public class GenerateRecord extends AbstractProcessor {
     static final PropertyDescriptor SCHEMA = new PropertyDescriptor.Builder()
         .name("generate-record-schema")
         .displayName("Schema")
-        .expressionLanguageSupported(ExpressionLanguageScope.NONE)
+        .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
         .description("An Avro schema to use for generating records.")
         .required(false)
         .addValidator(Validator.VALID)
@@ -169,7 +169,8 @@ public class GenerateRecord extends AbstractProcessor {
                 throw new ProcessException("When there is no incoming connection, an avro schema must be set " +
                         "in the Schema configuration property for this processor.");
             } else {
-                Schema parsed = new Schema.Parser().parse(context.getProperty(SCHEMA).getValue());
+                String str = context.getProperty(SCHEMA).evaluateAttributeExpressions(input).getValue();
+                Schema parsed = new Schema.Parser().parse(str);
                 schema = AvroTypeUtil.createSchema(parsed);
                 generator = new Generator(parsed, new Random());
             }
