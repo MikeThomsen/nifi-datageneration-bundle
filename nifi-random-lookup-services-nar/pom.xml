@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.apache.nifi</groupId>
         <artifactId>nifi-datageneration-bundle</artifactId>
-        <version>1.8.0</version>
+        <version>1.8.1</version>
     </parent>
     <artifactId>nifi-random-lookup-services-nar</artifactId>
     <packaging>nar</packaging>
@@ -29,13 +29,13 @@
         <dependency>
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-datageneration-api-nar</artifactId>
-            <version>${nifi.version}</version>
+            <version>${project.version}</version>
             <type>nar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-random-lookup-services</artifactId>
-            <version>${nifi.version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
