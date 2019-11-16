@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.apache.nifi</groupId>
         <artifactId>nifi-datageneration-bundle</artifactId>
-        <version>1.8.1</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>nifi-datageneration-nar</artifactId>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-datageneration-processors</artifactId>
-            <version>1.8.1</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <build>

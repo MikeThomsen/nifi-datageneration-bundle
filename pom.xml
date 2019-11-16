@@ -19,11 +19,16 @@
 
     <groupId>org.apache.nifi</groupId>
     <artifactId>nifi-datageneration-bundle</artifactId>
-    <version>1.8.1</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <properties>
-        <nifi.version>1.8.0</nifi.version>
+        <docx4j.version>6.1.2</docx4j.version>
+        <faker.version>1.0.1</faker.version>
+        <html2pdf.version>2.1.5</html2pdf.version>
+        <jackson.version>2.10.1</jackson.version>
+        <nifi.version>1.10.0</nifi.version>
+        <pebble.version>3.1.1</pebble.version>
     </properties>
 
     <modules>
@@ -50,23 +55,23 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.9.9</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
-                <version>0.15</version>
+                <version>${faker.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>html2pdf</artifactId>
-                <version>2.0.2</version>
+                <version>${html2pdf.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.pebbletemplates</groupId>
                 <artifactId>pebble</artifactId>
-                <version>3.0.2</version>
+                <version>${pebble.version}</version>
             </dependency>
 
             <dependency>
@@ -145,13 +150,13 @@
             <dependency>
                 <groupId>org.docx4j</groupId>
                 <artifactId>docx4j</artifactId>
-                <version>6.0.1</version>
+                <version>${docx4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.docx4j</groupId>
                 <artifactId>docx4j-ImportXHTML</artifactId>
-                <version>6.0.1</version>
+                <version>${docx4j.version}</version>
             </dependency>
 
             <dependency>
