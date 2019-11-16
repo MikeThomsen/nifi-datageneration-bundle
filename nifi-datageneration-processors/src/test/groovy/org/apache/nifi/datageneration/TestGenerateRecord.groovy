@@ -61,7 +61,7 @@ class TestGenerateRecord {
 
         def validator = { byte[] input, int expected, boolean fixed ->
             def is = new ByteArrayInputStream(input)
-            def jsonReader = reader.createRecordReader(attrs, is, runner.getLogger())
+            def jsonReader = reader.createRecordReader(attrs, is, -1, runner.getLogger())
             int count = 0
             def rec = jsonReader.nextRecord()
             while (rec) {
@@ -143,7 +143,7 @@ class TestGenerateRecord {
 
         def validator = { byte[] input, int expected ->
             def is = new ByteArrayInputStream(input)
-            def jsonReader = reader.createRecordReader(attrs, is, runner.getLogger())
+            def jsonReader = reader.createRecordReader(attrs, is, -1, runner.getLogger())
             int count = 0
             def rec = jsonReader.nextRecord()
             while (rec) {
@@ -196,7 +196,7 @@ class TestGenerateRecord {
 
         def validator = { byte[] input, int expected ->
             def is = new ByteArrayInputStream(input)
-            def jsonReader = reader.createRecordReader(attrs, is, runner.getLogger())
+            def jsonReader = reader.createRecordReader(attrs, is, -1, runner.getLogger())
             int count = 0
             def rec = jsonReader.nextRecord()
             while (rec) {
@@ -230,7 +230,7 @@ class TestGenerateRecord {
 
         def validator = { byte[] input, int expected ->
             def is = new ByteArrayInputStream(input)
-            def jsonReader = reader.createRecordReader(attrs, is, runner.getLogger())
+            def jsonReader = reader.createRecordReader(attrs, is, -1, runner.getLogger())
             int count = 0
             def rec = jsonReader.nextRecord()
             while (rec) {

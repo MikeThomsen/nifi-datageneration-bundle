@@ -24,6 +24,7 @@
 
     <properties>
         <docx4j.version>6.1.2</docx4j.version>
+        <docx4j-importxhtml.version>8.0.0</docx4j-importxhtml.version>
         <faker.version>1.0.1</faker.version>
         <html2pdf.version>2.1.5</html2pdf.version>
         <jackson.version>2.10.1</jackson.version>
@@ -156,7 +157,7 @@
             <dependency>
                 <groupId>org.docx4j</groupId>
                 <artifactId>docx4j-ImportXHTML</artifactId>
-                <version>${docx4j.version}</version>
+                <version>${docx4j-importxhtml.version}</version>
             </dependency>
 
             <dependency>
