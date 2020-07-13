@@ -28,7 +28,7 @@
         <faker.version>1.0.1</faker.version>
         <html2pdf.version>2.1.5</html2pdf.version>
         <jackson.version>2.10.1</jackson.version>
-        <nifi.version>1.10.0</nifi.version>
+        <nifi.version>1.11.4</nifi.version>
         <pebble.version>3.1.1</pebble.version>
     </properties>
 

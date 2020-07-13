@@ -1,4 +1,3 @@
-
 package org.apache.nifi.datageneration.templates.faker.functions
 
 import com.mitchellbosecke.pebble.PebbleEngine
