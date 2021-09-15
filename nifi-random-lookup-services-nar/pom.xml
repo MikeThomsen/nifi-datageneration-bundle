@@ -18,13 +18,10 @@
     <parent>
         <groupId>org.apache.nifi</groupId>
         <artifactId>nifi-datageneration-bundle</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <artifactId>nifi-random-lookup-services-nar</artifactId>
     <packaging>nar</packaging>
-    <properties>
-        <nifi.version>1.8.0</nifi.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.nifi</groupId>

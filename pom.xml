@@ -19,14 +19,14 @@
 
     <groupId>org.apache.nifi</groupId>
     <artifactId>nifi-datageneration-bundle</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <properties>
         <docx4j.version>6.1.2</docx4j.version>
-        <docx4j-importxhtml.version>8.0.0</docx4j-importxhtml.version>
-        <faker.version>1.0.1</faker.version>
-        <html2pdf.version>2.1.5</html2pdf.version>
+        <docx4j-importxhtml.version>8.2.1</docx4j-importxhtml.version>
+        <faker.version>1.0.2</faker.version>
+        <html2pdf.version>3.0.5</html2pdf.version>
         <jackson.version>2.10.5.1</jackson.version>
         <nifi.version>1.14.0</nifi.version>
         <pebble.version>3.1.5</pebble.version>
@@ -142,11 +142,25 @@
                 <artifactId>nifi-utils</artifactId>
                 <version>${nifi.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.codehaus.groovy</groupId>-->
-<!--                <artifactId>groovy-all</artifactId>-->
-<!--                <version>2.4.15</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.apache.nifi</groupId>
+                <artifactId>nifi-processor-utils</artifactId>
+                <version>${nifi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.nifi</groupId>
+                <artifactId>nifi-lookup-service-api</artifactId>
+                <version>${nifi.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.nifi</groupId>
+                <artifactId>nifi-standard-services-api-nar</artifactId>
+                <version>${nifi.version}</version>
+                <type>nar</type>
+            </dependency>
+
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
