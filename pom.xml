@@ -27,7 +27,7 @@
         <docx4j-importxhtml.version>8.0.0</docx4j-importxhtml.version>
         <faker.version>1.0.1</faker.version>
         <html2pdf.version>2.1.5</html2pdf.version>
-        <jackson.version>2.10.1</jackson.version>
+        <jackson.version>2.10.5.1</jackson.version>
         <nifi.version>1.14.0</nifi.version>
         <pebble.version>3.1.5</pebble.version>
     </properties>
