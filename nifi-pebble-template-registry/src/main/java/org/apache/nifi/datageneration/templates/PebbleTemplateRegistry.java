@@ -22,11 +22,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 @CapabilityDescription("A Template Registry implementation that provides support for the Pebble template library. Extensions to " +
         "Pebble can be added using the provided configuration properties for defining JAR locations and classes to load. ")
